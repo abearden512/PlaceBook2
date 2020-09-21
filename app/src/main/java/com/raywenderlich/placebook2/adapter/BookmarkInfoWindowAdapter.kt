@@ -1,7 +1,6 @@
 package com.raywenderlich.placebook2.adapter
 
 import android.app.Activity
-import android.graphics.Bitmap
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -9,8 +8,9 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.Marker
 import com.raywenderlich.placebook2.R
 import com.raywenderlich.placebook2.ui.MapsActivity
+import com.raywenderlich.placebook2.viewmodel.MapsViewModel
 
-class BookmarkInfoWindowAdapter(context: Activity) :
+class BookmarkInfoWindowAdapter(val context: Activity) :
     GoogleMap.InfoWindowAdapter {
     // 2
     private val contents: View
@@ -32,7 +32,17 @@ class BookmarkInfoWindowAdapter(context: Activity) :
         val phoneView = contents.findViewById<TextView>(R.id.phone)
         phoneView.text = marker.snippet ?: ""
         val imageView = contents.findViewById< ImageView>(R.id.photo)
-        imageView.setImageBitmap((marker.tag as MapsActivity.PlaceInfo).image)
+        when (marker.tag) {
+            is MapsActivity.PlaceInfo -> {
+                imageView.setImageBitmap(
+                    (marker.tag as MapsActivity.PlaceInfo).image)
+            }
+            is MapsViewModel.BookmarkView -> {
+                var bookMarkview = marker.tag as
+                        MapsViewModel.BookmarkView
+                imageView.setImageBitmap(bookMarkview.getImage(context))
+            }
+        }
         return contents
     }
 }

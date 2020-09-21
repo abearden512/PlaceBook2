@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">PlaceBook2</string>
-    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_maps">PlaceBook</string>
     <string name="bookmark_image">Bookmark Image</string>
+    <string name="open_drawer">Open Drawer</string>
+    <string name="close_drawer">Close Drawer</string>
 </resources>
